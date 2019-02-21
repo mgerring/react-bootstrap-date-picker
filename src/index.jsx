@@ -194,9 +194,10 @@ class Calendar extends React.Component {
             maxDate && Date.parse(date) > Date.parse(maxDate);
           let clickHandler = this.handleClick;
           const style = {
+            userSelect: 'none',
             cursor: 'pointer',
             padding: this.props.cellPadding,
-            borderRadius: this.props.roundedCorners ? 5 : 0
+            borderRadius: this.props.roundedCorners ? '.25rem' : 0
           };
 
           if (beforeMinDate || afterMinDate) {
@@ -204,7 +205,7 @@ class Calendar extends React.Component {
             clickHandler = null;
             style.cursor = 'default';
           } else if (Date.parse(date) === Date.parse(selectedDate)) {
-            className = 'bg-primary';
+            className = 'bg-primary text-white';
           } else if (Date.parse(date) === Date.parse(currentDate)) {
             className = 'text-primary';
           }
@@ -825,6 +826,7 @@ export default class DatePicker extends React.Component {
         onHide={this.handleHide}
         rootClose
         delay={{ show: 250, hide: 100 }}
+        disabled={this.props.disabled}
         overlay={
           <Popover
             id={`date-picker-popover-${this.props.instanceCount}`}

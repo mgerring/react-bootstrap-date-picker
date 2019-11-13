@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 let instanceCount = 0;
 
 class CalendarHeader extends React.Component {
-  static displayName = 'DatePickerHeader';
+  static displayName = 'DatePickerHeader'
 
   static propTypes = {
     displayDate: PropTypes.object.isRequired,
@@ -31,7 +31,7 @@ class CalendarHeader extends React.Component {
     ]).isRequired,
     nextButtonElement: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
       .isRequired
-  };
+  }
 
   displayingMinMonth = () => {
     if (!this.props.minDate) return false;
@@ -42,7 +42,7 @@ class CalendarHeader extends React.Component {
       minDate.getFullYear() == displayDate.getFullYear() &&
       minDate.getMonth() == displayDate.getMonth()
     );
-  };
+  }
 
   displayingMaxMonth = () => {
     if (!this.props.maxDate) return false;
@@ -53,21 +53,21 @@ class CalendarHeader extends React.Component {
       maxDate.getFullYear() == displayDate.getFullYear() &&
       maxDate.getMonth() == displayDate.getMonth()
     );
-  };
+  }
 
   handleClickPrevious = () => {
     const newDisplayDate = new Date(this.props.displayDate);
     newDisplayDate.setDate(1);
     newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
     this.props.onChange(newDisplayDate);
-  };
+  }
 
   handleClickNext = () => {
     const newDisplayDate = new Date(this.props.displayDate);
     newDisplayDate.setDate(1);
     newDisplayDate.setMonth(newDisplayDate.getMonth() + 1);
     this.props.onChange(newDisplayDate);
-  };
+  }
 
   render() {
     return (
@@ -98,7 +98,7 @@ class CalendarHeader extends React.Component {
 const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 class Calendar extends React.Component {
-  static displayName = 'DatePickerCalendar';
+  static displayName = 'DatePickerCalendar'
 
   static propTypes = {
     selectedDate: PropTypes.object,
@@ -113,21 +113,19 @@ class Calendar extends React.Component {
     todayButtonLabel: PropTypes.string,
     roundedCorners: PropTypes.bool,
     showWeeks: PropTypes.bool
-  };
+  }
 
   handleClick = e => {
     const day = e.currentTarget.getAttribute('data-day');
-    const newSelectedDate = this.setTimeToNoon(
-      new Date(this.props.displayDate)
-    );
+    const newSelectedDate = this.setTimeToNoon(new Date(this.props.displayDate));
     newSelectedDate.setDate(day);
     this.props.onChange(newSelectedDate);
-  };
+  }
 
   handleClickToday = () => {
     const newSelectedDate = this.setTimeToNoon(new Date());
     this.props.onChange(newSelectedDate);
-  };
+  }
 
   setTimeToNoon = date => {
     date.setHours(12);
@@ -135,7 +133,7 @@ class Calendar extends React.Component {
     date.setSeconds(0);
     date.setMilliseconds(0);
     return date;
-  };
+  }
 
   getWeekNumber = date => {
     const target = new Date(date.valueOf());
@@ -147,7 +145,7 @@ class Calendar extends React.Component {
       target.setMonth(0, 1 + ((4 - target.getDay() + 7) % 7));
     }
     return 1 + Math.ceil((firstThursday - target) / 604800000);
-  };
+  }
 
   render() {
     const currentDate = this.setTimeToNoon(new Date());
@@ -167,10 +165,10 @@ class Calendar extends React.Component {
       this.props.weekStartsOn > 1
         ? firstDay.getDay() - this.props.weekStartsOn + 7
         : this.props.weekStartsOn === 1
-          ? firstDay.getDay() === 0
-            ? 6
-            : firstDay.getDay() - 1
-          : firstDay.getDay();
+        ? firstDay.getDay() === 0
+          ? 6
+          : firstDay.getDay() - 1
+        : firstDay.getDay();
     const showWeeks = this.props.showWeeks;
 
     let monthLength = daysInMonth[month];
@@ -190,8 +188,7 @@ class Calendar extends React.Component {
           const date = new Date(year, month, day, 12, 0, 0, 0).toISOString();
           const beforeMinDate =
             minDate && Date.parse(date) < Date.parse(minDate);
-          const afterMinDate =
-            maxDate && Date.parse(date) > Date.parse(maxDate);
+          const afterMinDate = maxDate && Date.parse(date) > Date.parse(maxDate);
           let clickHandler = this.handleClick;
           const style = {
             userSelect: 'none',
@@ -305,10 +302,10 @@ class Calendar extends React.Component {
 const language =
   typeof window !== 'undefined' && window.navigator
     ? (
-      window.navigator.userLanguage ||
+        window.navigator.userLanguage ||
         window.navigator.language ||
         ''
-    ).toLowerCase()
+      ).toLowerCase()
     : '';
 const dateFormat =
   !language || language === 'en-us' ? 'MM/DD/YYYY' : 'DD/MM/YYYY';
@@ -373,7 +370,7 @@ export default class DatePicker extends React.Component {
     ]),
     onInvalid: PropTypes.func,
     noValidate: PropTypes.bool
-  };
+  }
 
   static defaultProps = {
     cellPadding: '5px',
@@ -408,7 +405,7 @@ export default class DatePicker extends React.Component {
     style: {},
     roundedCorners: false,
     noValidate: false
-  };
+  }
 
   constructor(props) {
     super(props);
@@ -474,7 +471,7 @@ export default class DatePicker extends React.Component {
       selectedDate: selectedDate,
       inputValue: inputValue
     };
-  };
+  }
 
   clear = () => {
     if (this.props.onClear) {
@@ -486,7 +483,7 @@ export default class DatePicker extends React.Component {
     if (this.props.onChange) {
       this.props.onChange(null, null);
     }
-  };
+  }
 
   handleHide = () => {
     if (this.state.inputFocused) {
@@ -501,7 +498,7 @@ export default class DatePicker extends React.Component {
       ReactDOM.findDOMNode(this.hiddenInput).dispatchEvent(event);
       this.props.onBlur(event);
     }
-  };
+  }
 
   handleKeyDown = e => {
     if (e.which === 9 && this.state.inputFocused) {
@@ -516,7 +513,7 @@ export default class DatePicker extends React.Component {
         this.props.onBlur(event);
       }
     }
-  };
+  }
 
   handleFocus = () => {
     if (this.state.focused === true) {
@@ -537,13 +534,13 @@ export default class DatePicker extends React.Component {
       ReactDOM.findDOMNode(this.hiddenInput).dispatchEvent(event);
       this.props.onFocus(event);
     }
-  };
+  }
 
   handleBlur = () => {
     this.setState({
       inputFocused: false
     });
-  };
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !(
@@ -555,11 +552,11 @@ export default class DatePicker extends React.Component {
     return this.state.selectedDate
       ? this.state.selectedDate.toISOString()
       : null;
-  };
+  }
 
   getFormattedValue = () => {
     return this.state.displayDate ? this.state.inputValue : null;
-  };
+  }
 
   getCalendarPlacement = () => {
     const tag = Object.prototype.toString.call(this.props.calendarPlacement);
@@ -573,7 +570,7 @@ export default class DatePicker extends React.Component {
     } else {
       return this.props.calendarPlacement;
     }
-  };
+  }
 
   makeInputValueString = date => {
     const month = date.getMonth() + 1;
@@ -608,7 +605,7 @@ export default class DatePicker extends React.Component {
         (day > 9 ? day : `0${day}`)
       );
     }
-  };
+  }
 
   handleBadInput = originalValue => {
     const parts = originalValue
@@ -645,7 +642,7 @@ export default class DatePicker extends React.Component {
     this.setState({
       inputValue: parts.join(this.state.separator)
     });
-  };
+  }
 
   handleInputChange = () => {
     const originalValue = ReactDOM.findDOMNode(this.input).value;
@@ -723,13 +720,13 @@ export default class DatePicker extends React.Component {
     this.setState({
       inputValue: inputValue
     });
-  };
+  }
 
   onChangeMonth = newDisplayDate => {
     this.setState({
       displayDate: newDisplayDate
     });
-  };
+  }
 
   onChangeDate = newSelectedDate => {
     const inputValue = this.makeInputValueString(newSelectedDate);
@@ -751,7 +748,7 @@ export default class DatePicker extends React.Component {
     if (this.props.onChange) {
       this.props.onChange(newSelectedDate.toISOString(), inputValue);
     }
-  };
+  }
 
   componentDidUpdate(prevProps) {
     const value = this.props.value;
@@ -761,19 +758,6 @@ export default class DatePicker extends React.Component {
   }
 
   render() {
-    const calendarHeader = (
-      <CalendarHeader
-        previousButtonElement={this.props.previousButtonElement}
-        nextButtonElement={this.props.nextButtonElement}
-        displayDate={this.state.displayDate}
-        minDate={this.props.minDate}
-        maxDate={this.props.maxDate}
-        onChange={this.onChangeMonth}
-        monthLabels={this.props.monthLabels}
-        dateFormat={this.props.dateFormat}
-      />
-    );
-
     const control = this.props.customControl ? (
       React.cloneElement(this.props.customControl, {
         onKeyDown: this.handleKeyDown,
@@ -831,22 +815,35 @@ export default class DatePicker extends React.Component {
           <Popover
             id={`date-picker-popover-${this.props.instanceCount}`}
             className="date-picker-popover"
-            title={calendarHeader}
           >
-            <Calendar
-              cellPadding={this.props.cellPadding}
-              selectedDate={this.state.selectedDate}
-              displayDate={this.state.displayDate}
-              onChange={this.onChangeDate}
-              dayLabels={this.state.dayLabels}
-              weekStartsOn={this.props.weekStartsOn}
-              showTodayButton={this.props.showTodayButton}
-              todayButtonLabel={this.props.todayButtonLabel}
-              minDate={this.props.minDate}
-              maxDate={this.props.maxDate}
-              roundedCorners={this.props.roundedCorners}
-              showWeeks={this.props.showWeeks}
-            />
+            <Popover.Title>
+              <CalendarHeader
+                previousButtonElement={this.props.previousButtonElement}
+                nextButtonElement={this.props.nextButtonElement}
+                displayDate={this.state.displayDate}
+                minDate={this.props.minDate}
+                maxDate={this.props.maxDate}
+                onChange={this.onChangeMonth}
+                monthLabels={this.props.monthLabels}
+                dateFormat={this.props.dateFormat}
+              />
+            </Popover.Title>
+            <Popover.Content>
+              <Calendar
+                cellPadding={this.props.cellPadding}
+                selectedDate={this.state.selectedDate}
+                displayDate={this.state.displayDate}
+                onChange={this.onChangeDate}
+                dayLabels={this.state.dayLabels}
+                weekStartsOn={this.props.weekStartsOn}
+                showTodayButton={this.props.showTodayButton}
+                todayButtonLabel={this.props.todayButtonLabel}
+                minDate={this.props.minDate}
+                maxDate={this.props.maxDate}
+                roundedCorners={this.props.roundedCorners}
+                showWeeks={this.props.showWeeks}
+              />
+            </Popover.Content>
           </Popover>
         }
       >

@@ -369,7 +369,10 @@ export default class DatePicker extends React.Component {
       PropTypes.node
     ]),
     onInvalid: PropTypes.func,
-    noValidate: PropTypes.bool
+    noValidate: PropTypes.bool,
+    isValid: PropTypes.bool,
+    isInvalid: PropTypes.bool,
+    feedback: PropTypes.string,
   }
 
   static defaultProps = {
@@ -799,6 +802,8 @@ export default class DatePicker extends React.Component {
         autoComplete={this.props.autoComplete}
         onInvalid={this.props.onInvalid}
         noValidate={this.props.noValidate}
+        isValid={this.props.isValid}
+        isInvalid={this.props.isInvalid}
       />
     );
 
@@ -877,6 +882,11 @@ export default class DatePicker extends React.Component {
                 </div>
               </InputGroup.Text>
             </InputGroup.Append>
+          )}
+          {this.props.feedback && (
+            <Form.Control.Feedback type={this.props.isInvalid ? 'invalid' : (this.props.isValid ? 'valid' : null)}>
+              {this.props.feedback}
+            </Form.Control.Feedback>
           )}
         </InputGroup>
       </OverlayTrigger>
